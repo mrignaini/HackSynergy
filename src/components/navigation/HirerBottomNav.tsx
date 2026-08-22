@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Users, Briefcase, FileText, User } from 'lucide-react';
+import { Home, Users, Briefcase, CreditCard, User } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 
 export const HirerBottomNav: React.FC = () => {
@@ -24,9 +24,9 @@ export const HirerBottomNav: React.FC = () => {
       icon: <Briefcase className="w-5 h-5" />,
     },
     {
-      name: t('navTabHires'),
-      path: '/hirer/dashboard',
-      icon: <FileText className="w-5 h-5" />,
+      name: 'Payments',
+      path: '/hirer/payments',
+      icon: <CreditCard className="w-5 h-5" />,
     },
     {
       name: t('navTabProfile'),

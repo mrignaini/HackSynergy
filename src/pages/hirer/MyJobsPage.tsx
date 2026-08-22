@@ -191,6 +191,14 @@ export const MyJobsPage: React.FC = () => {
                             <span>{t('btnMarkCompleted')}</span>
                           </button>
                         )}
+                        <Link
+                          to="/payments"
+                          className="px-3.5 py-2 rounded-xl bg-amber-50 hover:bg-amber-100 border border-amber-300 text-amber-900 text-xs font-bold flex items-center gap-1 transition-colors"
+                          title="Secure payment in escrow"
+                        >
+                          <ShieldCheck className="w-3.5 h-3.5 text-amber-700" />
+                          <span>सुरक्षित भुगतान (Escrow)</span>
+                        </Link>
                       </div>
 
                       {!isInProgress && (

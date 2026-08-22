@@ -43,3 +43,10 @@ export function sendError(res: Response, message: string, statusCode = 500): Res
     message,
   });
 }
+
+export function sendCreated<T>(res: Response, data: T): Response {
+  return res.status(201).json({
+    success: true,
+    data,
+  });
+}

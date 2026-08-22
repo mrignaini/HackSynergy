@@ -223,11 +223,18 @@ async function main() {
   await prisma.payment.create({
     data: {
       workRecordId: workRecordCompleted.id,
+      hirerId: hirerAmit.id,
+      workerId: workerRamesh.id,
       amount: 3000.0, // 3 days at 1000/day
+      currency: 'INR',
+      paymentMethod: 'UPI',
+      demoPaymentId: 'SHR-PAY-9K2L8A71',
       workerConfirmed: true,
       hirerConfirmed: true,
-      status: PaymentStatus.VERIFIED,
-      verifiedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+      status: PaymentStatus.RELEASED,
+      paidAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
+      releaseRequestedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+      releasedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
     },
   });
 

@@ -15,6 +15,7 @@ import applicationRoutes from './routes/application.routes';
 import schemeRoutes from './routes/scheme.routes';
 import insuranceRoutes from './routes/insurance.routes';
 import notificationRoutes from './routes/notification.routes';
+import paymentRoutes from './routes/payment.routes';
 
 const app = express();
 
@@ -40,6 +41,8 @@ app.use('/api/applications', applicationRoutes);
 app.use('/api/schemes', schemeRoutes);
 app.use('/api/insurance', insuranceRoutes);
 app.use('/api/notifications', notificationRoutes);
+app.use('/api/payments', paymentRoutes);
+
 
 app.use(notFoundHandler);
 app.use(errorHandler);

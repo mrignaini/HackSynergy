@@ -42,6 +42,13 @@ import { HirerProfilePage } from './pages/hirer/HirerProfilePage';
 import { HirerDashboardPage } from './pages/hirer/HirerDashboardPage';
 import { PostJobPage } from './pages/hirer/PostJobPage';
 import { MyJobsPage } from './pages/hirer/MyJobsPage';
+import { HirerPaymentsPage } from './pages/hirer/HirerPaymentsPage';
+
+// Worker Payment
+import { WorkerPaymentsPage } from './pages/worker/WorkerPaymentsPage';
+
+// Payments & Escrow Hub
+import { PaymentGatewayPage } from './pages/payment/PaymentGatewayPage';
 
 // Admin
 import { AdminPage } from './pages/admin/AdminPage';
@@ -70,6 +77,10 @@ export const App: React.FC = () => {
                   <Route path="/login" element={<LoginPage />} />
                   <Route path="/register" element={<RegisterPage />} />
 
+                  {/* Top-Level Payments & Escrow Hub */}
+                  <Route path="/payments" element={<PaymentGatewayPage />} />
+                  <Route path="/payment" element={<PaymentGatewayPage />} />
+
                   {/* Public Digital Work Identity Routes */}
                   <Route path="/worker/:workerId/identity" element={<PublicWorkIdentityPage />} />
                   <Route path="/identity/:workerId" element={<PublicWorkIdentityPage />} />
@@ -88,12 +99,14 @@ export const App: React.FC = () => {
                   <Route path="/worker/insurance" element={<InsurancePage />} />
                   <Route path="/worker/income-protection" element={<IncomeProtectionPage />} />
                   <Route path="/worker/my-support" element={<MySupportPage />} />
+                  <Route path="/worker/payments" element={<WorkerPaymentsPage />} />
 
                   {/* Hirer Sub-Routes */}
                   <Route path="/hirer/dashboard" element={<HirerDashboardPage />} />
                   <Route path="/hirer/profile" element={<HirerProfilePage />} />
                   <Route path="/hirer/post-job" element={<PostJobPage />} />
                   <Route path="/hirer/my-jobs" element={<MyJobsPage />} />
+                  <Route path="/hirer/payments" element={<HirerPaymentsPage />} />
 
                   {/* Admin Portal */}
                   <Route path="/admin" element={<AdminPage />} />

@@ -631,6 +631,332 @@ export const translations: Translations = {
     hi: 'कोई भुगतान रिकॉर्ड नहीं मिला।',
     en: 'No payment records found.',
   },
+
+  // Auth Flow – Mobile Step
+  authWelcomeTitle: {
+    hi: 'स्वागत है',
+    en: 'Welcome',
+  },
+  authWelcomeSub: {
+    hi: 'अपना मोबाइल नंबर दर्ज करें',
+    en: 'Enter your mobile number to get started',
+  },
+  authMobileLabel: {
+    hi: 'मोबाइल नंबर',
+    en: 'Mobile Number',
+  },
+  authMobilePlaceholder: {
+    hi: '9876543210',
+    en: '9876543210',
+  },
+  authContinueBtn: {
+    hi: 'जारी रखें',
+    en: 'Continue',
+  },
+  authTermsNote: {
+    hi: 'जारी रखकर, आप हमारी सेवा की शर्तों और गोपनीयता नीति से सहमत हैं।',
+    en: 'By continuing, you agree to our Terms of Service and Privacy Policy.',
+  },
+
+  // Auth Flow – OTP Step
+  otpTitle: {
+    hi: 'OTP सत्यापन',
+    en: 'OTP Verification',
+  },
+  otpSub: {
+    hi: 'आपके मोबाइल नंबर पर भेजा गया 6-अंकीय कोड दर्ज करें',
+    en: 'Enter the 6-digit code sent to your mobile number',
+  },
+  otpVerifyBtn: {
+    hi: 'सत्यापित करें',
+    en: 'Verify',
+  },
+  otpResendBtn: {
+    hi: 'कोड दोबारा भेजें',
+    en: 'Resend Code',
+  },
+  otpChangeNumber: {
+    hi: 'नंबर बदलें',
+    en: 'Change Number',
+  },
+  otpDemoHint: {
+    hi: 'डेमो OTP: 123456',
+    en: 'Demo OTP: 123456',
+  },
+  otpErrorInvalid: {
+    hi: 'अमान्य OTP। कृपया पुनः प्रयास करें।',
+    en: 'Invalid OTP. Please try again.',
+  },
+
+  // Auth Flow – Language Selection
+  langTitle: {
+    hi: 'भाषा चुनें',
+    en: 'Choose Language',
+  },
+  langSub: {
+    hi: 'अपनी पसंदीदा भाषा चुनें',
+    en: 'Select your preferred language',
+  },
+
+  // Auth Flow – Role Selection
+  roleTitle: {
+    hi: 'आप कौन हैं?',
+    en: 'Who are you?',
+  },
+  roleSub: {
+    hi: 'अपनी भूमिका चुनें',
+    en: 'Choose your role',
+  },
+  roleWorkerTitle: {
+    hi: 'कामगार',
+    en: 'Worker',
+  },
+  roleWorkerSub: {
+    hi: 'मैं काम ढूंढ रहा हूँ',
+    en: 'I am looking for work',
+  },
+  roleHirerTitle: {
+    hi: 'नियोक्ता',
+    en: 'Hirer',
+  },
+  roleHirerSub: {
+    hi: 'मुझे कामगार चाहिए',
+    en: 'I need workers',
+  },
+
+  // Auth Flow – Worker Onboarding
+  workerOnboardTitle: {
+    hi: 'कामगार प्रोफ़ाइल बनाएं',
+    en: 'Create Worker Profile',
+  },
+  fullNameLabel: {
+    hi: 'पूरा नाम',
+    en: 'Full Name',
+  },
+  fullNamePlaceholder: {
+    hi: 'अपना पूरा नाम दर्ज करें',
+    en: 'Enter your full name',
+  },
+  avatarChooseLabel: {
+    hi: 'अपना अवतार चुनें',
+    en: 'Choose your avatar',
+  },
+
+  // Auth Flow – Skills
+  skillsQuestionTitle: {
+    hi: 'आपके कौशल क्या हैं?',
+    en: 'What are your skills?',
+  },
+  skillsQuestionSub: {
+    hi: 'अपने कौशल चुनें',
+    en: 'Select your skills',
+  },
+  skillMason: {
+    hi: 'राजमिस्त्री',
+    en: 'Mason',
+  },
+  skillCarpenter: {
+    hi: 'बढ़ई',
+    en: 'Carpenter',
+  },
+  skillPainter: {
+    hi: 'पेंटर',
+    en: 'Painter',
+  },
+  skillElectrician: {
+    hi: 'इलेक्ट्रीशियन',
+    en: 'Electrician',
+  },
+  skillPlumber: {
+    hi: 'प्लंबर',
+    en: 'Plumber',
+  },
+  skillHelper: {
+    hi: 'हेल्पर',
+    en: 'Helper',
+  },
+  skillTile: {
+    hi: 'टाइल मिस्त्री',
+    en: 'Tile Fitter',
+  },
+  errSelectSkill: {
+    hi: 'कम से कम एक कौशल चुनें',
+    en: 'Please select at least one skill',
+  },
+
+  // Auth Flow – Experience & Availability
+  expQuestionTitle: {
+    hi: 'आपका अनुभव कितना है?',
+    en: 'How much experience do you have?',
+  },
+  expLess1: {
+    hi: '1 साल से कम',
+    en: 'Less than 1 year',
+  },
+  exp1to3: {
+    hi: '1-3 साल',
+    en: '1-3 years',
+  },
+  exp3to5: {
+    hi: '3-5 साल',
+    en: '3-5 years',
+  },
+  exp5to10: {
+    hi: '5-10 साल',
+    en: '5-10 years',
+  },
+  exp10plus: {
+    hi: '10+ साल',
+    en: '10+ years',
+  },
+  availQuestionTitle: {
+    hi: 'आपकी उपलब्धता क्या है?',
+    en: 'What is your availability?',
+  },
+  availNow: {
+    hi: 'अभी उपलब्ध',
+    en: 'Available Now',
+  },
+  availNowSub: {
+    hi: 'मैं तुरंत शुरू कर सकता हूँ',
+    en: 'I can start immediately',
+  },
+  availLater: {
+    hi: 'बाद में उपलब्ध',
+    en: 'Available Later',
+  },
+  availLaterSub: {
+    hi: 'मैं बाद में शुरू करूंगा',
+    en: 'I will start later',
+  },
+  availWorking: {
+    hi: 'अभी कार्यरत',
+    en: 'Currently Working',
+  },
+  availWorkingSub: {
+    hi: 'मैं इस समय काम कर रहा हूँ',
+    en: 'I am currently employed',
+  },
+
+  // Auth Flow – Location
+  locationCityLabel: {
+    hi: 'शहर',
+    en: 'City',
+  },
+  locationCityPlaceholder: {
+    hi: 'अपना शहर दर्ज करें',
+    en: 'Enter your city',
+  },
+  locationAreaLabel: {
+    hi: 'क्षेत्र / इलाका',
+    en: 'Area / Locality',
+  },
+  locationAreaPlaceholder: {
+    hi: 'अपना इलाका दर्ज करें',
+    en: 'Enter your area',
+  },
+  locationPincodeLabel: {
+    hi: 'पिनकोड',
+    en: 'Pincode',
+  },
+  locationPincodePlaceholder: {
+    hi: 'पिनकोड दर्ज करें',
+    en: 'Enter pincode',
+  },
+
+  // Auth Flow – Review & Submit
+  summaryTitle: {
+    hi: 'प्रोफ़ाइल सारांश',
+    en: 'Profile Summary',
+  },
+  verifiedPhoneLabel: {
+    hi: 'सत्यापित फ़ोन',
+    en: 'Verified Phone',
+  },
+  stepBasicInfo: {
+    hi: 'बुनियादी जानकारी',
+    en: 'Basic Info',
+  },
+  stepLocation: {
+    hi: 'स्थान',
+    en: 'Location',
+  },
+  btnBack: {
+    hi: 'वापस',
+    en: 'Back',
+  },
+  btnNext: {
+    hi: 'आगे',
+    en: 'Next',
+  },
+  btnCreateProfile: {
+    hi: 'प्रोफ़ाइल बनाएं',
+    en: 'Create Profile',
+  },
+  btnGoWorkerHome: {
+    hi: 'कामगार डैशबोर्ड पर जाएं',
+    en: 'Go to Worker Dashboard',
+  },
+  errValidMobile: {
+    hi: 'कृपया सही 10-अंकीय मोबाइल नंबर दर्ज करें',
+    en: 'Please enter a valid 10-digit mobile number',
+  },
+
+  // Auth Flow – Worker Success
+  successWorkerTitle: {
+    hi: 'प्रोफ़ाइल बन गई!',
+    en: 'Profile Created!',
+  },
+  successWorkerSub: {
+    hi: 'आपकी कामगार प्रोफ़ाइल सफलतापूर्वक बनाई गई है।',
+    en: 'Your worker profile has been created successfully.',
+  },
+
+  // Auth Flow – Hirer Onboarding
+  hirerOnboardTitle: {
+    hi: 'नियोक्ता प्रोफ़ाइल बनाएं',
+    en: 'Create Hirer Profile',
+  },
+  hirerTypeLabel: {
+    hi: 'आप किस प्रकार के नियोक्ता हैं?',
+    en: 'What type of hirer are you?',
+  },
+  typeContractor: {
+    hi: 'ठेकेदार',
+    en: 'Contractor',
+  },
+  typeBuilder: {
+    hi: 'बिल्डर',
+    en: 'Builder',
+  },
+  typeHomeowner: {
+    hi: 'घर मालिक',
+    en: 'Homeowner',
+  },
+  typeLandlord: {
+    hi: 'जमींदार',
+    en: 'Landlord',
+  },
+  typeSmallBiz: {
+    hi: 'छोटा व्यवसाय',
+    en: 'Small Business',
+  },
+  btnCreateHirerProfile: {
+    hi: 'नियोक्ता प्रोफ़ाइल बनाएं',
+    en: 'Create Hirer Profile',
+  },
+  btnGoHirerHome: {
+    hi: 'नियोक्ता डैशबोर्ड पर जाएं',
+    en: 'Go to Hirer Dashboard',
+  },
+  successHirerTitle: {
+    hi: 'प्रोफ़ाइल बन गई!',
+    en: 'Profile Created!',
+  },
+  successHirerSub: {
+    hi: 'आपकी नियोक्ता प्रोफ़ाइल सफलतापूर्वक बनाई गई है।',
+    en: 'Your hirer profile has been created successfully.',
+  },
 };
 
 interface LanguageContextType {

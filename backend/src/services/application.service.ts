@@ -122,8 +122,10 @@ export async function applyToJob(userId: string, jobId: string) {
   }
 
   // Prevent duplicate applications (unique constraint already exists, but we give a friendly error)
-  const existing = await prisma.application.findUnique({
-    where: { jobId_workerId: { jobId, workerId: workerProfile.id } },
+  // Prevent duplicate applications – use a findFirst lookup because the generated
+  // composite unique field may not be available until the client is regenerated.
+  const existing = await prisma.application.findFirst({
+    where: { jobId, workerId: workerProfile.id },
   });
   if (existing) {
     throw new ApiError(409, 'You have already applied to this job');
@@ -361,4 +363,34 @@ export async function rejectApplication(hirerUserId: string, applicationId: stri
   });
 }
 
-// Exported for controller convenience – existing getAllApplications & getApplicationById remain above.
+/**
+ * Retrieve a single application for a hirer, ensuring ownership.
+ */
+export async function getApplicationByIdForHirer(hirerUserId: string, applicationId: string) {
+  const hirerProfile = await prisma.hirerProfile.findUnique({ where: { userId: hirerUserId } });
+  if (!hirerProfile) {
+    throw new ApiError(404, 'Hirer profile not found');
+  }
+
+  const application = await prisma.application.findUnique({
+    where: { id: applicationId },
+    include: {
+      job: true,
+      worker: {
+        include: {
+          skills: { include: { skill: true } },
+          digitalIdentity: true,
+        },
+      },
+    },
+  });
+
+  if (!application) {
+    throw new ApiError(404, 'Application not found');
+  }
+  if (application.job.hirerId !== hirerProfile.id) {
+    throw new ApiError(403, 'Forbidden: Application does not belong to your job');
+  }
+  return application;
+}
+

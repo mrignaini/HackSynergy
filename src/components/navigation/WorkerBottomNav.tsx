@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Search, Briefcase, Award, User, BookOpen } from 'lucide-react';
+import { Home, Search, Briefcase, Award, Wallet } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 
 export const WorkerBottomNav: React.FC = () => {
@@ -29,9 +29,9 @@ export const WorkerBottomNav: React.FC = () => {
       icon: <Award className="w-5 h-5" />,
     },
     {
-      name: 'इतिहास',
-      path: '/worker/work-history',
-      icon: <BookOpen className="w-5 h-5" />,
+      name: 'Payments',
+      path: '/worker/payments',
+      icon: <Wallet className="w-5 h-5" />,
     },
   ];
 

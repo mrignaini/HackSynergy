@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { HardHat, User, Settings, Menu, X } from 'lucide-react';
+import { HardHat, User, Settings, Menu, X, CreditCard, ShieldCheck } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
+import { useAuth } from '../../context/AuthContext';
 import { LanguageSelector } from './LanguageSelector';
 
 export const Navbar: React.FC = () => {
   const { t, language } = useLanguage();
+  const { auth } = useAuth();
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const paymentPath = '/payments';
 
   const navLinks = [
     { name: t('navHome'), path: '/' },
@@ -56,14 +60,14 @@ export const Navbar: React.FC = () => {
           </Link>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center space-x-7">
+          <nav className="hidden xl:flex items-center space-x-5 2xl:space-x-7">
             {navLinks.map((link) => {
               const active = isActive(link.path);
               return (
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`relative py-2 text-[15px] font-medium transition-colors duration-150 ${
+                  className={`relative py-2 text-[14.5px] font-medium transition-colors duration-150 whitespace-nowrap ${
                     active
                       ? 'text-amber-600 font-semibold'
                       : 'text-slate-700 hover:text-slate-900'
@@ -78,26 +82,46 @@ export const Navbar: React.FC = () => {
             })}
           </nav>
 
-          {/* Right Action Items */}
-          <div className="hidden sm:flex items-center space-x-3.5">
-            {/* Language Selector */}
+          {/* Right Action Items — Perfectly Linear & Balanced */}
+          <div className="hidden sm:flex items-center gap-2 lg:gap-2.5 shrink-0">
+            {/* 1. Language Selector */}
             <LanguageSelector />
 
-            {/* Admin Link */}
+            {/* 2. Secure Payments ESCROW Pill Button */}
+            <Link
+              to={paymentPath}
+              className={`inline-flex items-center gap-2 h-9 px-3.5 rounded-full text-xs font-bold border transition-all duration-200 shrink-0 whitespace-nowrap select-none shadow-2xs hover:shadow-xs ${
+                location.pathname.includes('/payments')
+                  ? 'bg-amber-100 text-amber-950 border-amber-400 ring-2 ring-amber-400/25 shadow-xs scale-[1.01]'
+                  : 'bg-amber-50/70 hover:bg-amber-100/90 text-amber-950 border-amber-300 hover:border-amber-400 hover:scale-[1.01]'
+              }`}
+              title="SHRAMIKK Escrow & Secure Payments Demo"
+            >
+              <CreditCard className="w-3.5 h-3.5 text-amber-800 shrink-0 stroke-[2.2]" />
+              <span className="font-extrabold tracking-tight text-amber-950 text-[12.5px]">
+                Payments
+              </span>
+              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[9.5px] font-black bg-amber-200/90 text-amber-950 border border-amber-300/80 tracking-wider uppercase">
+                <ShieldCheck className="w-2.5 h-2.5 text-amber-800 stroke-[2.5]" />
+                <span>ESCROW</span>
+              </span>
+            </Link>
+
+            {/* 3. Admin Link */}
             <Link
               to="/admin"
-              className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 transition-colors"
+              className="inline-flex items-center gap-1 h-9 px-3 rounded-full text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 border border-transparent hover:border-slate-200 transition-all whitespace-nowrap"
             >
               <span>{t('navAdmin')}</span>
               <Settings className="w-3.5 h-3.5 text-slate-400" />
             </Link>
 
-            {/* Login / Register CTA */}
+            {/* 4. Login / Register CTA */}
             <Link
               to="/login"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#0B132B] text-white text-sm font-semibold hover:bg-[#15224D] shadow-sm hover:shadow transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0"
+              className="inline-flex items-center gap-1.5 h-9 px-4.5 rounded-full bg-[#0B132B] text-white text-xs sm:text-sm font-semibold hover:bg-[#15224D] shadow-sm hover:shadow transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap"
             >
-              <User className="w-4 h-4 text-slate-300" />
+              <User className="w-3.5 h-3.5 text-slate-300" />
               <span>{t('navLoginRegister')}</span>
             </Link>
           </div>
@@ -137,6 +161,17 @@ export const Navbar: React.FC = () => {
             );
           })}
           <div className="pt-3 border-t border-slate-100 flex flex-col gap-2.5">
+            <Link
+              to={paymentPath}
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center justify-between px-3 py-2 text-sm font-semibold text-amber-900 bg-amber-50 rounded-lg border border-amber-200/60"
+            >
+              <div className="flex items-center gap-2">
+                <CreditCard className="w-4 h-4 text-amber-700" />
+                <span>Secure Payments (Demo)</span>
+              </div>
+              <ShieldCheck className="w-4 h-4 text-amber-600" />
+            </Link>
             <Link
               to="/admin"
               onClick={() => setMobileMenuOpen(false)}

@@ -35,9 +35,15 @@ enum WorkStatus {
 }
 
 enum PaymentStatus {
-  PENDING
-  VERIFIED
-  UNDER_REVIEW
+  CREATED
+  PAYMENT_PENDING
+  PAID
+  FUNDS_LOCKED
+  WORK_COMPLETED
+  RELEASE_PENDING
+  RELEASED
+  FAILED
+  REFUNDED
 }
 
 model User {
@@ -71,6 +77,8 @@ model WorkerProfile {
   digitalIdentity  DigitalIdentity?
   safetyNetRecords SafetyNetRecord[]
   financialRecords FinancialRecord[]
+  payments         Payment[]
+  securePayments   SecurePayment[]
 }
 
 model HirerProfile {
@@ -82,8 +90,10 @@ model HirerProfile {
   companyName String?
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
-  jobs        Job[]
-  workRecords WorkRecord[]
+  jobs           Job[]
+  workRecords    WorkRecord[]
+  payments       Payment[]
+  securePayments SecurePayment[]
 }
 
 model Skill {
@@ -114,6 +124,7 @@ model Job {
   updatedAt   DateTime      @updatedAt
   applications Application[]
   workRecord   WorkRecord?
+  securePayment SecurePayment?
 
   @@index([hirerId])
   @@index([status])
@@ -145,8 +156,10 @@ model WorkRecord {
   status      WorkStatus @default(STARTED)
   startedAt   DateTime   @default(now())
   completedAt DateTime?
-  ratings     Rating[]
-  payments    Payment[]
+  ratings       Rating[]
+  payments      Payment[]
+  securePayment SecurePayment?
+  dispute       Dispute?
 
   @@index([workerId])
   @@index([hirerId])
@@ -161,26 +174,39 @@ model Rating {
   fromUser     User       @relation("ratingsGiven", fields: [fromUserId], references: [id], onDelete: Cascade)
   toUserId     String
   toUser       User       @relation("ratingsReceived", fields: [toUserId], references: [id], onDelete: Cascade)
-  rating       Float
-  review       String?
+  rating       Int
+  review       String? @db.VarChar(500)
   createdAt    DateTime   @default(now())
 
+  @@unique([workRecordId, fromUserId])
   @@index([workRecordId])
   @@index([toUserId])
 }
 
 model Payment {
-  id              String        @id @default(uuid())
-  workRecordId    String
-  workRecord      WorkRecord    @relation(fields: [workRecordId], references: [id], onDelete: Cascade)
-  amount          Float
-  workerConfirmed Boolean       @default(false)
-  hirerConfirmed  Boolean       @default(false)
-  status          PaymentStatus @default(PENDING)
-  createdAt       DateTime      @default(now())
-  verifiedAt      DateTime?
+  id                 String        @id @default(uuid())
+  workRecordId       String        @unique
+  workRecord         WorkRecord    @relation(fields: [workRecordId], references: [id], onDelete: Cascade)
+  hirerId            String
+  hirer              HirerProfile  @relation(fields: [hirerId], references: [id])
+  workerId           String
+  worker             WorkerProfile @relation(fields: [workerId], references: [id])
+  amount             Float
+  currency           String        @default("INR")
+  status             PaymentStatus @default(CREATED)
+  paymentMethod      String?       // UPI | CARD | NET_BANKING | WALLET
+  demoPaymentId      String?       // e.g. SHR-PAY-8F4A92K1
+  workerConfirmed    Boolean       @default(false)
+  hirerConfirmed     Boolean       @default(false)
+  createdAt          DateTime      @default(now())
+  paidAt             DateTime?
+  releaseRequestedAt DateTime?
+  releasedAt         DateTime?
+  updatedAt          DateTime      @updatedAt
 
   @@index([workRecordId])
+  @@index([hirerId])
+  @@index([workerId])
   @@index([status])
 }
 
@@ -246,3 +272,43 @@ model Notification {
 
   @@index([userId, read])
 }
+
+enum SecurePaymentStatus {
+  NOT_SECURED
+  SECURED
+  RELEASED
+  DISPUTED
+}
+
+model SecurePayment {
+  id               String               @id @default(uuid())
+  workRecordId     String               @unique
+  jobId            String               @unique
+  workerId         String
+  hirerId          String
+  amount           Float
+  status           SecurePaymentStatus  @default(NOT_SECURED)
+  disputeId        String?              @unique
+  createdAt        DateTime             @default(now())
+  updatedAt        DateTime             @updatedAt
+
+  workRecord       WorkRecord           @relation(fields: [workRecordId], references: [id], onDelete: Cascade)
+  job              Job                  @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  worker           WorkerProfile        @relation(fields: [workerId], references: [id], onDelete: Cascade)
+  hirer            HirerProfile         @relation(fields: [hirerId], references: [id], onDelete: Cascade)
+  dispute          Dispute?             @relation(fields: [disputeId], references: [id])
+}
+
+model Dispute {
+  id               String   @id @default(uuid())
+  workRecordId     String   @unique
+  reporterId       String   // User who raised the dispute
+  reason           String?  @db.VarChar(500)
+  status           String   @default("OPEN") // OPEN or RESOLVED
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  workRecord       WorkRecord @relation(fields: [workRecordId], references: [id], onDelete: Cascade)
+  securePayment    SecurePayment?
+}
+

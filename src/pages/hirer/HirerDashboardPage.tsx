@@ -190,17 +190,17 @@ export const HirerDashboardPage: React.FC = () => {
               </div>
             </Link>
 
-            {/* 4. Work Records */}
+            {/* 4. Escrow Payments */}
             <Link
-              to="/admin"
-              className="p-4 rounded-[22px] bg-white border border-slate-200/90 shadow-2xs hover:shadow-card hover:border-emerald-400 transition-all flex flex-col justify-between h-32 group"
+              to="/payments"
+              className="p-4 rounded-[22px] bg-white border border-slate-200/90 shadow-2xs hover:shadow-card hover:border-amber-400 transition-all flex flex-col justify-between h-32 group"
             >
-              <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-900 flex items-center justify-center group-hover:scale-105 transition-transform">
-                <FileText className="w-5 h-5" />
+              <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-900 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <ShieldCheck className="w-5 h-5" />
               </div>
               <div>
-                <div className="text-sm font-extrabold text-[#0B132B]">{t('quickWorkRecordsTitle')}</div>
-                <div className="text-[11px] text-slate-500">{t('quickWorkRecordsSub')}</div>
+                <div className="text-sm font-extrabold text-[#0B132B]">सुरक्षित भुगतान (Escrow)</div>
+                <div className="text-[11px] text-slate-500">Lock & Release Funds</div>
               </div>
             </Link>
           </div>
