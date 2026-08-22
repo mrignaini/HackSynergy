@@ -1,9 +1,14 @@
 import { PrismaClient, Role, JobStatus, ApplicationStatus, WorkStatus, PaymentStatus } from '@prisma/client';
+import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log('Seeding SHRAMIKK Database...');
+  console.log('Seeding SHRAMIKK Database with Bcrypt Passwords...');
+
+  const defaultWorkerPasswordHash = bcrypt.hashSync('password123', 10);
+  const defaultHirerPasswordHash = bcrypt.hashSync('password123', 10);
+  const defaultAdminPasswordHash = bcrypt.hashSync('admin123', 10);
 
   // 1. Clear existing data in correct dependency order
   await prisma.notification.deleteMany({});
@@ -33,13 +38,13 @@ async function main() {
 
   console.log('Skills seeded ✓');
 
-  // 3. Seed Users & Profiles (Workers & Hirers)
+  // 3. Seed Users & Profiles (Workers, Hirers & Admin)
   // Worker 1: Ramesh Kumar
   const userRamesh = await prisma.user.create({
     data: {
       email: 'ramesh@shramikk.in',
       phone: '+919876543210',
-      passwordHash: 'hashed_password_123', // plain mock string for hackathon
+      passwordHash: defaultWorkerPasswordHash,
       role: Role.WORKER,
     },
   });
@@ -75,7 +80,7 @@ async function main() {
     data: {
       email: 'suresh@shramikk.in',
       phone: '+919811144556',
-      passwordHash: 'hashed_password_456',
+      passwordHash: defaultWorkerPasswordHash,
       role: Role.WORKER,
     },
   });
@@ -108,7 +113,7 @@ async function main() {
     data: {
       email: 'amit@shramikk.in',
       phone: '+919933311223',
-      passwordHash: 'hashed_password_789',
+      passwordHash: defaultHirerPasswordHash,
       role: Role.HIRER,
     },
   });
@@ -122,7 +127,17 @@ async function main() {
     },
   });
 
-  console.log('Users and Profiles seeded ✓');
+  // Admin User
+  await prisma.user.create({
+    data: {
+      email: 'admin@shramikk.in',
+      phone: '+919999000000',
+      passwordHash: defaultAdminPasswordHash,
+      role: Role.ADMIN,
+    },
+  });
+
+  console.log('Users and Profiles seeded with bcrypt hashes ✓');
 
   // 4. Seed Jobs
   const job1 = await prisma.job.create({
@@ -266,7 +281,7 @@ async function main() {
   });
 
   console.log('Schemes and Insurance seeded ✓');
-  console.log('Database Seeding Completed Successfully! 🚀');
+  console.log('Database Seeding with Bcrypt Completed Successfully! 🚀');
 }
 
 main()

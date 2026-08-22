@@ -603,14 +603,6 @@ export const translations: Translations = {
     hi: 'कार्य-लिंक्ड वित्तीय रिकॉर्ड और कनेक्टेड सेवाएं',
     en: 'Manage work-linked financial records & discover services',
   },
-  financialHubTitle: {
-    hi: 'वित्तीय केंद्र (Financial Hub)',
-    en: 'Financial Hub',
-  },
-  financialHubSub: {
-    hi: 'आपके कार्य अभिलेख, दो-तरफ़ा सत्यापित भुगतान इतिहास व कनेक्टेड वित्तीय सेवाएं।',
-    en: 'Your work records, payment history and connected financial services.',
-  },
   paymentRecordsTitle: {
     hi: 'भुगतान रिकॉर्ड (Payment Records)',
     en: 'Payment Records',

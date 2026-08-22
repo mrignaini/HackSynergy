@@ -911,7 +911,7 @@ export const AdminPage: React.FC = () => {
                       </span>
                     </div>
                     <p className="text-[11px] text-slate-600">{s.descriptionHi}</p>
-                    <div className="text-[10px] text-amber-800 font-mono">स्रोत: {s.officialSourceUrl || 'Government Portal'}</div>
+                    <div className="text-[10px] text-amber-800 font-mono">स्रोत: {s.officialSource || 'Government Portal'}</div>
                   </div>
                 ))}
               </div>
@@ -934,10 +934,10 @@ export const AdminPage: React.FC = () => {
                 {verifiedInsuranceOptions.map((i) => (
                   <div key={i.id} className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
                     <div className="flex items-center justify-between">
-                      <strong className="text-slate-900 font-bold">{i.titleHi}</strong>
-                      <span className="font-mono text-emerald-700 font-black">{i.premium}</span>
+                      <strong className="text-slate-900 font-bold">{i.nameHi}</strong>
+                      <span className="font-mono text-emerald-700 font-black">{i.category}</span>
                     </div>
-                    <p className="text-[11px] text-slate-600">{i.coverageHi}</p>
+                    <p className="text-[11px] text-slate-600">{i.coverageHi[0]}</p>
                     <div className="text-[10px] text-slate-400">प्रदाता: {i.provider}</div>
                   </div>
                 ))}

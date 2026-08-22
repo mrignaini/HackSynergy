@@ -13,6 +13,7 @@ import {
   Star,
   Play,
   FileText,
+  ShieldCheck,
 } from 'lucide-react';
 import type { Job } from '../../types';
 import { useLanguage } from '../../context/LanguageContext';
