@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@theme {
+  --color-shramik-navy: #0B132B;
+  --color-shramik-navy-dark: #080E1F;
+  --color-shramik-navy-light: #142147;
+  --color-shramik-navy-card: #0F1A36;
+  --color-shramik-amber: #F59E0B;
+  --color-shramik-amber-dark: #D97706;
+  --color-shramik-amber-light: #FBBF24;
+  --color-shramik-amber-warm: #EAA228;
+  --color-shramik-cream: #FBFBF9;
+  --color-shramik-cream-light: #FFFFFF;
+  --color-shramik-cream-dark: #F3F4F6;
+  --color-shramik-cream-badge: #FEF3C7;
+  --color-shramik-green: #10B981;
+  --color-shramik-green-dark: #059669;
+  --color-shramik-green-light: #D1FAE5;
+  --font-sans: 'Plus Jakarta Sans', 'Inter', 'Noto Sans Devanagari', system-ui, sans-serif;
+  --font-hindi: 'Noto Sans Devanagari', 'Plus Jakarta Sans', sans-serif;
+  --shadow-card: 0 10px 30px -5px rgba(15, 23, 42, 0.06), 0 4px 6px -2px rgba(15, 23, 42, 0.02);
+  --shadow-card-hover: 0 20px 40px -10px rgba(15, 23, 42, 0.12), 0 8px 10px -3px rgba(15, 23, 42, 0.04);
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #FAF9F6;
+  color: #0F172A;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Hazard Stripe Pattern */
+.hazard-stripe-pattern {
+  background: repeating-linear-gradient(
+    -45deg,
+    #F59E0B,
+    #F59E0B 12px,
+    #0F172A 12px,
+    #0F172A 24px
+  );
+}

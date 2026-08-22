@@ -1,0 +1,246 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  WORKER
+  HIRER
+  ADMIN
+}
+
+enum JobStatus {
+  OPEN
+  HIRED
+  IN_PROGRESS
+  COMPLETED
+  CLOSED
+}
+
+enum ApplicationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum WorkStatus {
+  STARTED
+  COMPLETED
+  CLOSED
+}
+
+enum PaymentStatus {
+  PENDING
+  VERIFIED
+  UNDER_REVIEW
+}
+
+model User {
+  id           String        @id @default(uuid())
+  email        String?       @unique
+  phone        String?       @unique
+  passwordHash String
+  role         Role
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  workerProfile WorkerProfile?
+  hirerProfile  HirerProfile?
+  ratingsGiven   Rating[]      @relation("ratingsGiven")
+  ratingsReceived Rating[]     @relation("ratingsReceived")
+  notifications  Notification[]
+}
+
+model WorkerProfile {
+  id               String            @id @default(uuid())
+  userId           String            @unique
+  user             User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name             String
+  location         String
+  bio              String?
+  experience       String?
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  skills           WorkerSkill[]
+  applications     Application[]
+  workRecords      WorkRecord[]
+  digitalIdentity  DigitalIdentity?
+  safetyNetRecords SafetyNetRecord[]
+  financialRecords FinancialRecord[]
+}
+
+model HirerProfile {
+  id          String       @id @default(uuid())
+  userId      String       @unique
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name        String
+  location    String
+  companyName String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  jobs        Job[]
+  workRecords WorkRecord[]
+}
+
+model Skill {
+  id      String        @id @default(uuid())
+  name    String        @unique
+  workers WorkerSkill[]
+}
+
+model WorkerSkill {
+  workerId String
+  worker   WorkerProfile @relation(fields: [workerId], references: [id], onDelete: Cascade)
+  skillId  String
+  skill    Skill         @relation(fields: [skillId], references: [id], onDelete: Cascade)
+
+  @@id([workerId, skillId])
+}
+
+model Job {
+  id          String        @id @default(uuid())
+  hirerId     String
+  hirer       HirerProfile  @relation(fields: [hirerId], references: [id], onDelete: Cascade)
+  title       String
+  description String?
+  location    String
+  wage        Float
+  status      JobStatus     @default(OPEN)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  applications Application[]
+  workRecord   WorkRecord?
+
+  @@index([hirerId])
+  @@index([status])
+}
+
+model Application {
+  id        String            @id @default(uuid())
+  jobId     String
+  job       Job               @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  workerId  String
+  worker    WorkerProfile     @relation(fields: [workerId], references: [id], onDelete: Cascade)
+  status    ApplicationStatus @default(PENDING)
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+
+  @@index([workerId])
+  @@index([status])
+}
+
+model WorkRecord {
+  id          String     @id @default(uuid())
+  jobId       String     @unique
+  job         Job        @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  workerId    String
+  worker      WorkerProfile @relation(fields: [workerId], references: [id], onDelete: Cascade)
+  hirerId     String
+  hirer       HirerProfile  @relation(fields: [hirerId], references: [id], onDelete: Cascade)
+  status      WorkStatus @default(STARTED)
+  startedAt   DateTime   @default(now())
+  completedAt DateTime?
+  ratings     Rating[]
+  payments    Payment[]
+
+  @@index([workerId])
+  @@index([hirerId])
+  @@index([status])
+}
+
+model Rating {
+  id           String     @id @default(uuid())
+  workRecordId String
+  workRecord   WorkRecord @relation(fields: [workRecordId], references: [id], onDelete: Cascade)
+  fromUserId   String
+  fromUser     User       @relation("ratingsGiven", fields: [fromUserId], references: [id], onDelete: Cascade)
+  toUserId     String
+  toUser       User       @relation("ratingsReceived", fields: [toUserId], references: [id], onDelete: Cascade)
+  rating       Float
+  review       String?
+  createdAt    DateTime   @default(now())
+
+  @@index([workRecordId])
+  @@index([toUserId])
+}
+
+model Payment {
+  id              String        @id @default(uuid())
+  workRecordId    String
+  workRecord      WorkRecord    @relation(fields: [workRecordId], references: [id], onDelete: Cascade)
+  amount          Float
+  workerConfirmed Boolean       @default(false)
+  hirerConfirmed  Boolean       @default(false)
+  status          PaymentStatus @default(PENDING)
+  createdAt       DateTime      @default(now())
+  verifiedAt      DateTime?
+
+  @@index([workRecordId])
+  @@index([status])
+}
+
+model DigitalIdentity {
+  id         String        @id @default(uuid())
+  workerId   String        @unique
+  worker     WorkerProfile @relation(fields: [workerId], references: [id], onDelete: Cascade)
+  isPublic   Boolean       @default(true)
+  publicSlug String        @unique
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+}
+
+model GovernmentScheme {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  description String
+  eligibility String?
+  source      String?
+  active      Boolean  @default(true)
+}
+
+model InsuranceOption {
+  id          String   @id @default(uuid())
+  provider    String
+  name        String
+  description String
+  coverage    String?
+  active      Boolean  @default(true)
+}
+
+model SafetyNetRecord {
+  id        String        @id @default(uuid())
+  workerId  String
+  worker    WorkerProfile @relation(fields: [workerId], references: [id], onDelete: Cascade)
+  type      String
+  status    String
+  createdAt DateTime      @default(now())
+
+  @@index([workerId])
+}
+
+model FinancialRecord {
+  id          String        @id @default(uuid())
+  workerId    String
+  worker      WorkerProfile @relation(fields: [workerId], references: [id], onDelete: Cascade)
+  type        String
+  amount      Float
+  description String?
+  createdAt   DateTime      @default(now())
+
+  @@index([workerId])
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  title     String
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, read])
+}
