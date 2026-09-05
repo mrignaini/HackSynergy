@@ -427,7 +427,7 @@ Easy access to identity and financial information
  Demo
 Demo Video
 
-[ADD DEMO VIDEO LINK HERE]
+https://youtu.be/Pm5t0v38RL8
 
 Live Prototype
 
@@ -647,7 +647,7 @@ Find Work. Build Trust. Create Identity.
 Every completed job can be more than a payment — it can become part of a worker's digital future.
 
 
-- `[ADD DEMO VIDEO LINK]`
+-  https://youtu.be/Pm5t0v38RL8
 - `https://hack-synergy-git-main-hacksynergy.vercel.app/
 - `[VM Sync / Vishal Raj, Mrig Naini Mudgal /IPEC GZB]`
 
